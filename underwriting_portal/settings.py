@@ -24,9 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-b-@izxj6(+gi*k5a*q5whrcu3in(&)7-zq%apsu=he6v^h3rq2"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False  # True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["cfac.uiic.in"]
+FORCE_SCRIPT_NAME = "/hyderabad"
 
 
 # Application definition
@@ -107,11 +108,11 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 AUTH_USER_MODEL = "accounts.CustomUser"
 
-LOGIN_URL = "/accounts/login/"
+LOGIN_URL = f"{FORCE_SCRIPT_NAME}/accounts/login/"
 LOGIN_REDIRECT_URL = reverse_lazy(
     "proposal_list_by_status", kwargs={"status": "pending"}
 )
-LOGOUT_REDIRECT_URL = "/accounts/login/"  # optional fallback
+LOGOUT_REDIRECT_URL = f"{FORCE_SCRIPT_NAME}/accounts/login/"  # optional fallback
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
@@ -128,7 +129,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = "/static/"
+STATIC_URL = f"{FORCE_SCRIPT_NAME}/static/"
 
 STATICFILES_DIRS = [
     BASE_DIR / "staticfiles",
@@ -137,10 +138,12 @@ STATICFILES_DIRS = [
 STATIC_ROOT = BASE_DIR / "static_root"
 
 BOOTSTRAP5 = {
-    "css_url": {"url": "/static/bootstrap/css/bootstrap.min.css"},
-    "javascript_url": {"url": "/static/bootstrap/js/bootstrap.bundle.min.js"},
+    "css_url": {"url": f"{FORCE_SCRIPT_NAME}/static/bootstrap/css/bootstrap.min.css"},
+    "javascript_url": {
+        "url": f"{FORCE_SCRIPT_NAME}/static/bootstrap/js/bootstrap.bundle.min.js"
+    },
 }
-
+# WHITENOISE_START_PREFIX = '/static'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
