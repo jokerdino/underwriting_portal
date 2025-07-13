@@ -1,0 +1,40 @@
+{% extends "base_generic.html" %}
+
+{% load django_tables2 %}
+{% load django_bootstrap5 %}
+{% block content %}
+<div class="container">
+    <table class="table table-bordered table-sm mt-3">
+        <thead class="table-light">
+            <tr>
+                <th>Status</th>
+                <th>Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in status_counts %}
+            <tr>
+                <td>{{ row.status|capfirst }}</td>
+                <td>{{ row.count }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="2">No data</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="container-fluid">
+    <h2>Proposals</h2>
+    {% render_table table %}
+</div>
+
+{% endblock content %}
+{% block scripts %}
+{{ block.super }}
+<script>new DataTable('#ProposalTable', {
+        order: [[3, 'desc']]
+    });</script>
+
+{% endblock scripts %}

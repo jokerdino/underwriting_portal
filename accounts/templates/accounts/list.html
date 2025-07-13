@@ -1,0 +1,18 @@
+{% extends "user_generic.html" %}
+
+{% load django_tables2 %}
+{% load django_bootstrap5 %}
+{% block content %}
+<div class="container-fluid">
+    <h2>Users list</h2>
+    {% render_table table %}
+</div>
+
+{% endblock content %}
+{% block scripts %}
+{{ block.super }}
+<script>new DataTable('#UserTable', {
+        order: [[3, 'desc']]
+    });</script>
+
+{% endblock scripts %}

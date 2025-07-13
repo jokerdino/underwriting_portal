@@ -1,0 +1,21 @@
+{% extends "user_generic.html" %}
+{% load django_bootstrap5 %}
+{% block content %}
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <!-- djlint:off -->
+    <div class="card p-4" style="min-width: 300px; max-width: 400px; width: 100%;">
+        <!-- djlint:on -->
+        <h2 class="mb-4 text-center">Login</h2>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% bootstrap_form form layout="horizontal" %}
+            <div class="text-center">
+                {% bootstrap_button button_type="submit" content="Submit" %}
+                {% bootstrap_button button_type="reset" content="Cancel" %}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}

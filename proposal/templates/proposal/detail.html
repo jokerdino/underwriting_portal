@@ -1,0 +1,74 @@
+{% extends "base_generic.html" %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+<div class="container">
+    <h1 class="title">Proposal Details</h1>
+
+    <table class="table table-bordered table-striped">
+        <tbody>
+            <tr>
+                <th>Office Code</th>
+                <td>{{ proposal.office_code }}</td>
+            </tr>
+            <tr>
+                <th>LOB</th>
+                <td>{{ proposal.get_lob_display }}</td>
+            </tr>
+            <tr>
+                <th>Segment</th>
+                <td>{{ proposal.segment }}</td>
+            </tr>
+            <tr>
+                <th>Proposal Number</th>
+                <td>{{ proposal.proposal_number }}</td>
+            </tr>
+            <tr>
+                <th>Reason for Escalation</th>
+                <td>{{ proposal.reason_for_escalation|linebreaks }}</td>
+            </tr>
+            <tr>
+                <th>Format Filled</th>
+                <td>{{ proposal.format_filled|yesno:"Yes,No" }}</td>
+            </tr>
+            <tr>
+                <th>Date of Email Sent</th>
+                <td>{{ proposal.date_of_email_sent|date:"d/m/Y" }}</td>
+            </tr>
+            <tr>
+                <th>OO Remarks</th>
+                <td>{{ proposal.oo_remarks|linebreaks }}</td>
+            </tr>
+            <tr>
+                <th>RO Action</th>
+                <td>{{ proposal.get_status_display }}</td>
+            </tr>
+            <tr>
+                <th>RO Remarks</th>
+                <td>{{ proposal.ro_remarks|linebreaks }}</td>
+            </tr>
+            <tr>
+                <th>Created At</th>
+                <td>{{ proposal.created_at|date:"d/m/Y H:i" }}</td>
+            </tr>
+            <tr>
+                <th>Created By</th>
+                <td>{{ proposal.created_by }}</td>
+            </tr>
+            <tr>
+                <th>Updated At</th>
+                <td>{{ proposal.updated_at|date:"d/m/Y H:i" }}</td>
+            </tr>
+            <tr>
+                <th>Updated By</th>
+                <td>{{ proposal.updated_by }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="text-end">
+        <a href="{% url 'proposal_update' proposal.pk %}" class="btn btn-primary">Edit</a>
+        <a href="{% url 'proposal_list' %}" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>
+{% endblock content %}

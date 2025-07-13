@@ -1,0 +1,18 @@
+{% extends "user_generic.html" %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+
+<div class="container">
+    <h1 class="title mt-3 mb-3">{{ title }}</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form form layout="horizontal" %}
+        <div class="text-center">
+            {% bootstrap_button button_type="submit" content="Submit" %}
+            {% bootstrap_button button_type="reset" content="Cancel" %}
+        </div>
+    </form>
+</div>
+{% endblock %}
