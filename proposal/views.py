@@ -1,6 +1,6 @@
 # from django.shortcuts import render
 from django.db.models import Count
-
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.detail import DetailView
@@ -12,7 +12,7 @@ from django_tables2.views import SingleTableView
 
 # from django_filters.views import FilterView
 
-from .models import Proposal
+from .models import Proposal, LineOfBusiness, ProductName
 from .forms import ProposalFormRO, ProposalFormOO
 from .tables import ProposalTable
 
@@ -125,3 +125,13 @@ class ProposalUpdateView(LoginRequiredMixin, UpdateView):
 class ProposalDetailView(LoginRequiredMixin, DetailView):
     model = Proposal
     template_name = "proposal/detail.html"
+
+
+# HTMX partial
+def load_segments(request):
+    lob_id = request.GET.get("lob")
+    segments = ProductName.objects.filter(lob_id=lob_id).order_by("product_name")
+
+    return render(
+        request, "partials/segment_dropdown_list_options.html", {"segments": segments}
+    )

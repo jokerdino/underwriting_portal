@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "auditlog",
     "django_tables2",
     "django_filters",
+    "import_export",
     "accounts",
     "proposal.apps.ProposalConfig",
 ]

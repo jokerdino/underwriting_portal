@@ -13,26 +13,45 @@ PROPOSAL_STATUS = (
     ("pending_ho", "Sent to HO"),
     ("approved_ho", "HO approved"),
 )
-LOB_CHOICES = (
-    ("fire", "Fire"),
-    ("marine_cargo", "Marine Cargo"),
-    ("marine_hull", "Marine Hull"),
-    ("package", "Package"),
-    ("liability", "Liability"),
-    ("health", "Health"),
-    ("motor_od", "Motor OD"),
-    ("motor_tp", "Motor TP"),
-    ("personal_accident", "Personal Accident"),
-    ("aviation", "Aviation"),
-    ("engineering", "Engineering"),
-    ("others", "Others"),
-)
+# LOB_CHOICES = (
+#     ("fire", "Fire"),
+#     ("marine_cargo", "Marine Cargo"),
+#     ("marine_hull", "Marine Hull"),
+#     ("package", "Package"),
+#     ("liability", "Liability"),
+#     ("health", "Health"),
+#     ("motor_od", "Motor OD"),
+#     ("motor_tp", "Motor TP"),
+#     ("personal_accident", "Personal Accident"),
+#     ("aviation", "Aviation"),
+#     ("engineering", "Engineering"),
+#     ("others", "Others"),
+# )
+
+
+class LineOfBusiness(models.Model):
+    lob_name = models.CharField("LOB", max_length=20)
+
+    def __str__(self):
+        return self.lob_name
+
+
+class ProductName(models.Model):
+    product_name = models.CharField(max_length=100)
+    lob = models.ForeignKey(LineOfBusiness, null=True, on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return self.product_name
 
 
 class Proposal(models.Model):
     office_code = models.CharField(max_length=10)
-    lob = models.CharField("LOB", choices=LOB_CHOICES, max_length=20)
-    segment = models.CharField(max_length=10)
+    lob = models.ForeignKey(
+        LineOfBusiness, null=True, on_delete=models.SET_NULL, verbose_name="LOB"
+    )
+    segment = models.ForeignKey(ProductName, null=True, on_delete=models.SET_NULL)
+    # lob = models.CharField("LOB", choices=LOB_CHOICES, max_length=20)
+    # segment = models.CharField(max_length=10)
     proposal_number = models.CharField(max_length=20)
     reason_for_escalation = models.TextField(help_text="Copy and paste from GC")
     format_filled = models.BooleanField(

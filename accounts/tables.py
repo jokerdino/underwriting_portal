@@ -3,6 +3,7 @@ import django_tables2 as tables
 from django.utils.html import format_html
 from django.urls import reverse
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 
 
 class UserTable(tables.Table):
@@ -37,9 +38,10 @@ class UserTable(tables.Table):
 
     def render_last_login(self, value):
         if value:
+            local_value = timezone.localtime(value)
             return format_html(
                 '<span data-order="{}">{}</span>',
-                value.isoformat(),
-                value.strftime("%d/%m/%Y %H:%M:%S"),
+                local_value.isoformat(),
+                local_value.strftime("%d/%m/%Y %H:%M:%S"),
             )
         return ""
