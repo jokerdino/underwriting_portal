@@ -136,6 +136,7 @@ class UserListView(
     model = get_user_model()
     table_class = UserTable
     template_name = "accounts/list.html"
+    paginate = False
 
     def test_func(self):
         return self.request.user.is_staff

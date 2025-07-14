@@ -12,7 +12,7 @@ from django_tables2.views import SingleTableView
 
 # from django_filters.views import FilterView
 
-from .models import Proposal, LineOfBusiness, ProductName
+from .models import Proposal, LineOfBusiness, ProductName, ProposalFormat
 from .forms import ProposalFormRO, ProposalFormOO
 from .tables import ProposalTable
 
@@ -25,6 +25,7 @@ class ProposalListView(LoginRequiredMixin, SingleTableView):  ##Mixin, FilterVie
     table_class = ProposalTable
     template_name = "proposal/list.html"
     # filterset_class = ProposalFilter
+    paginate = False
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -63,6 +64,7 @@ class ProposalListView(LoginRequiredMixin, SingleTableView):  ##Mixin, FilterVie
         counts = qs.values("status").annotate(count=Count("id")).order_by("status")
 
         context["status_counts"] = counts
+        context["format"] = ProposalFormat.objects.first()
 
         return context
 

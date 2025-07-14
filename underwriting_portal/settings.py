@@ -138,6 +138,8 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = BASE_DIR / "static_root"
 
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 BOOTSTRAP5 = {
     "css_url": {"url": f"{FORCE_SCRIPT_NAME}/static/bootstrap/css/bootstrap.min.css"},
     "javascript_url": {

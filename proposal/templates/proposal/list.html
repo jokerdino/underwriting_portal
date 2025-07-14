@@ -4,27 +4,41 @@
 {% load django_bootstrap5 %}
 {% block content %}
 <div class="container">
-    <table class="table table-bordered table-sm mt-3">
-        <thead class="table-light">
-            <tr>
-                <th>Status</th>
-                <th>Count</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for row in status_counts %}
-            <tr>
-                <td>{{ row.status|capfirst }}</td>
-                <td>{{ row.count }}</td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="2">No data</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table table-bordered table-sm mt-3">
+                <thead class="table-light">
+                    <tr>
+                        <th>Status</th>
+                        <th>Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in status_counts %}
+                    <tr>
+                        <td>{{ row.status|capfirst }}</td>
+                        <td>{{ row.count }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="2">No data</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6 d-flex align-items-start justify-content-center mt-3">
+            {% if format.format %}
+            <a href="{{ format.format.url }}" download class="btn btn-primary">
+                Download Proposal format
+            </a>
+            {% else %}
+            <p>No file available.</p>
+            {% endif %}
+        </div>
+    </div>
 </div>
+
 <div class="container-fluid">
     <h2>Proposals</h2>
     {% render_table table %}
@@ -34,7 +48,7 @@
 {% block scripts %}
 {{ block.super }}
 <script>new DataTable('#ProposalTable', {
-        order: [[3, 'desc']]
+        //order: [[3, 'desc']]
     });</script>
 
 {% endblock scripts %}

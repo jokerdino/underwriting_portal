@@ -88,4 +88,8 @@ class Proposal(models.Model):
         return reverse("proposal_detail", args=[str(self.pk)])
 
 
+class ProposalFormat(models.Model):
+    format = models.FileField(upload_to="proposal_formats/")
+
+
 auditlog.register(Proposal)

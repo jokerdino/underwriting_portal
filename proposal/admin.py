@@ -2,11 +2,12 @@ from django.contrib import admin
 
 from import_export.admin import ImportExportModelAdmin
 
-from .models import Proposal, ProductName, LineOfBusiness
+from .models import Proposal, ProductName, LineOfBusiness, ProposalFormat
 from .resources import LineOfBusinessResource, ProductNameResource
 
 # Register your models here.
 admin.site.register(Proposal)
+admin.site.register(ProposalFormat)
 
 
 @admin.register(LineOfBusiness)
